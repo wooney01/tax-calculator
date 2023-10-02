@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>税款计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+
+        .error {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function calculate() {
+            // Get values
+            let amount = parseFloat(document.getElementById("inputAmount").value);
+            let rate = parseFloat(document.getElementById("taxRate").value);
+            
+            // Input validation
+            if (isNaN(amount) || amount < 0) {
+                document.getElementById("error").style.display = "block";
+                document.getElementById("error").innerText = "请输入有效的含税金额";
+                return;
+            }
+
+            // Calculate tax
+            let tax = (amount / (1 + rate)) * rate;
+            tax = tax.toFixed(2);
+
+            // Display result
+            document.getElementById("tax").innerHTML = tax;
+            document.getElementById("error").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+    <h3>含税金额转税款计算器</h3>
+
+    含税金额:<input type="number" id="inputAmount">
+    税率:
+    <select id="taxRate">
+        <option value="0">0%</option>
+        <option value="0.01">1%</option>
+        <option value="0.03">3%</option>
+        <option value="0.06">6%</option>
+        <option value="0.09">9%</option>
+        <option value="0.13">13%</option>
+    </select>
+    <button onclick="calculate()">计算税款</button>
+    <div class="error" id="error"></div>
+    税款:<span id="tax"></span>
+
+</body>
+
+</html>
